@@ -3,6 +3,7 @@ import 'package:bhagavat_gita/view/provider/json_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+
 void main()
 {
   runApp(
@@ -26,10 +27,16 @@ class _MyAppState extends State<MyApp> {
           create: (context) => JsonProvider(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        initialRoute: '/',
-        routes: AllRoutes.appRoutes,
+      child: Consumer<JsonProvider>(
+        builder: (BuildContext context, value, Widget? child) {
+          value.getData();
+          value.getShlokData();
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            routes: AllRoutes.appRoutes,
+            initialRoute: AllRoutes.home,
+          );
+        },
       ),
     );
   }
